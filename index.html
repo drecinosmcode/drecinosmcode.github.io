@@ -1,25 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
-  <meta charset="UTF-8">
-  <title>tarea 9 progra 2 </title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Tu Tienda de Tecnología</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="login-container">
-    <h2>Iniciar sesión</h2>
-    <input type="text" id="username" placeholder="Usuario">
-    <input type="password" id="password" placeholder="Contraseña">
-    <button onclick="validarLogin()">Ingresar</button>
-    <p id="mensaje"></p>
-    <div id="imagen-container" style="display:none;">
-      <img src="Universidad Mariano Galvez.png" alt="Bienvenido">
-      <img src="alumno.png" alt="Bienvenido">
-    </div>
-    <div id="video-container" style="display: none;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/s9ssVYpu6KE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-  </div>
+    <header>
+        <div class="container">
+            <h1>TechStore</h1>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#login" id="login-link">Iniciar Sesión</a></li>
+                    <li><a href="#carrito" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <script src="script.js"></script>
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h2>Bienvenido a TechStore</h2>
+            <p>Los mejores productos tecnológicos al mejor precio</p>
+            <button id="ver-productos-btn" class="btn-primary">Ver Productos</button>
+        </div>
+    </section>
+
+    <section id="login" class="login-section" style="display: none;">
+        <div class="container">
+            <h2>Iniciar Sesión</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="contrasena">Contraseña:</label>
+                    <input type="password" id="contrasena" name="contrasena" required>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="recordar" name="recordar">
+                    <label for="recordar">Recordar mis datos</label>
+                </div>
+                <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                <p id="mensaje-login"></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="productos" class="productos-section" style="display: none;">
+        <div class="container">
+            <h2>Nuestros Productos</h2>
+            
+            <div class="filtros">
+                <label for="categoria">Filtrar por categoría:</label>
+                <select id="categoria">
+                    <option value="todos">Todos</option>
+                    <option value="laptops">Laptops</option>
+                    <option value="smartphones">Smartphones</option>
+                    <option value="tablets">Tablets</option>
+                    <option value="accesorios">Accesorios</option>
+                </select>
+                
+                <label for="orden">Ordenar por:</label>
+                <select id="orden">
+                    <option value="nombre">Nombre</option>
+                    <option value="precio-asc">Precio: Menor a Mayor</option>
+                    <option value="precio-desc">Precio: Mayor a Menor</option>
+                </select>
+            </div>
+            
+            <div class="productos-grid" id="lista-productos">
+            </div>
+        </div>
+    </section>
+    <section id="carrito" class="carrito-section" style="display: none;">
+        <div class="container">
+            <h2>Tu Carrito de Compras</h2>
+            
+            <div id="carrito-vacio" class="carrito-vacio">
+                <p>Tu carrito está vacío</p>
+            </div>
+            
+            <div id="carrito-contenido" style="display: none;">
+                <div class="carrito-items" id="carrito-items">
+                </div>
+                
+                <div class="carrito-total">
+                    <h3>Total: $<span id="total-carrito">0.00</span></h3>
+                </div>
+                
+                <div class="metodo-pago">
+                    <h3>Método de Pago</h3>
+                    <div class="opciones-pago">
+                        <label>
+                            <input type="radio" name="metodo-pago" value="tarjeta" checked>
+                            Tarjeta de Crédito/Débito
+                        </label>
+                        <label>
+                            <input type="radio" name="metodo-pago" value="paypal">
+                            PayPal
+                        </label>
+                        <label>
+                            <input type="radio" name="metodo-pago" value="transferencia">
+                            Transferencia Bancaria
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="acciones-carrito">
+                    <button id="vaciar-carrito" class="btn-secundario">Vaciar Carrito</button>
+                    <button id="finalizar-compra" class="btn-primary">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="confirmacion" class="confirmacion-section" style="display: none;">
+        <div class="container">
+            <h2>¡Compra Finalizada!</h2>
+            <div class="confirmacion-detalles">
+                <p>Gracias por tu compra en TechStore.</p>
+                <p>Tu pedido ha sido procesado exitosamente.</p>
+                <p>Recibirás un correo electrónico con los detalles de tu compra.</p>
+                <button id="volver-inicio" class="btn-primary">Volver al Inicio</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TechStore. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="modal-producto" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <div id="modal-contenido">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
